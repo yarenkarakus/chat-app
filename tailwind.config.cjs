@@ -4,6 +4,8 @@ module.exports = {
   darkMode: "media",
   theme: {
     color: {
+      transparent: "transparent",
+
       "indigo-050": "#E0E8F9",
       "indigo-100": "#BED0F7",
       "indigo-200": "#98AEEB",
