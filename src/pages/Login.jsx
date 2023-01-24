@@ -2,7 +2,7 @@ import React from "react";
 
 const Login = () => {
   return (
-    <div className="bg-zinc-200  h-screen flex items-center justify-center">
+    <div className="  h-screen flex items-center justify-center">
       <div className="bg-cool-grey-050 py-5 px-14 rounded-lg flex flex-col gap-2.5 items-center ">
         <h1 className=" font-bold text-2xl">Gossip Chat</h1>
         <h3 className="  text-xl">Login</h3>
