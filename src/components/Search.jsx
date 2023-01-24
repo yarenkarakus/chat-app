@@ -3,9 +3,9 @@ import React from "react";
 const Search = () => {
   return (
     <div className="border-b-[1px] border-b-solid border-b-cool-grey-200">
-      <div className="searchform">
+      <div className="searchform bg-indigo-900">
         <input
-          className="bg-transparent border-none text-white outline-none placeholder:text-cool-grey-100 p-2.5"
+          className="w-full bg-transparent shadow-inner rounded-lg  shadow-blue-500/50 border-none  text-white outline-none placeholder:text-cool-grey-100 p-2.5"
           type="text"
           placeholder="Find a user"
         />
