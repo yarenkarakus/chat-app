@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-cool-grey-100 text-cool-grey-800 font-mono;
+}
+
+.input {
+  @apply border-orange-300 text-white p-3.5 w-64 border-b-2 rounded-xl;
+}
+
+.icon {
+  @apply h-6 cursor-pointer brightness-50;
+}
+
+.owner {
+  @apply flex-row-reverse;
+}
+
+.owner p {
+  @apply bg-indigo-400 text-white rounded-xl rounded-tr-none;
+}
