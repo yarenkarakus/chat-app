@@ -21,7 +21,7 @@ const Input = () => {
         <label htmlFor="file">
           <img className="h-6 cursor-pointer" src={Img} alt="" />
         </label>
-        <button className="border-none py-2.5 px-3.5 text-white bg-indigo-400 rounded-xl">
+        <button className="shadow-lg border-none py-2.5 px-3.5 text-white bg-indigo-400 rounded-xl">
           Send
         </button>
       </div>
