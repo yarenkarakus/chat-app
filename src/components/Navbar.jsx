@@ -11,8 +11,8 @@ const Navbar = () => {
           className="bg-cool-grey-050 h-6 w-6 rounded-full object-cover "
         />
         <span>John</span>
-        <button className="bg-orange-vivid-500 text-white text-xs border-none cursor-pointer">
-          logout
+        <button className="bg-orange-vivid-700 p-1 rounded-xl text-white text-xs border-none cursor-pointer">
+          Logout
         </button>
       </div>
     </div>
