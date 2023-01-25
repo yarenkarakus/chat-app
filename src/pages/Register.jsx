@@ -1,13 +1,55 @@
-import React from "react";
+import React, { useState } from "react";
 import Add from "../img/addAvatar.png";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db, storage } from "../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
+  const [err, setErr] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const displayName = e.target[0].value;
+    const email = e.target[1].value;
+    const password = e.target[2].value;
+    const file = e.target[3].files[0];
+
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      const storageRef = ref(storage, displayName);
+
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        (error) => {
+          setErr(true);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await updateProfile(res.user, {
+              displayName,
+              photoURL: downloadURL,
+            });
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName,
+              email,
+              photoURL: downloadURL,
+            });
+          });
+        }
+      );
+    } catch (err) {
+      setErr(true);
+    }
+  };
   return (
     <div className=" h-screen flex items-center justify-center">
       <div className="bg-cool-grey-050  py-5 px-14 rounded-xl flex flex-col gap-2.5 items-center ">
         <h1 className="  font-bold text-2xl">Gossip Chat</h1>
         <h3 className="  text-xl">Register</h3>
-        <form className="flex flex-col gap-4 ">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <input className="input" type="text" placeholder="Name" />
           <input className="input" type="email" placeholder="Email" />
           <input className="input" type="password" placeholder="Password" />
@@ -29,6 +71,7 @@ const Register = () => {
             <div className="w-4 h-4 border-b-2 border-b-white animate-spin rounded-full"></div>
             Sign up
           </button>
+          {err && <span>Something went wrong</span>}
         </form>
 
         <p className=" text-xs mt-2.5">You do have an account? Login </p>
