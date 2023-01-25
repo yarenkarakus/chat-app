@@ -29,7 +29,7 @@ body {
 }
 
 .input {
-  @apply border-orange-300 text-white p-3.5 w-64 border-b-2 rounded-xl;
+  @apply border-orange-300  p-3.5 w-64 border-b-2 rounded-xl;
 }
 
 .icon {
