@@ -36,6 +36,9 @@ body {
   @apply h-6 cursor-pointer brightness-50;
 }
 
+.message {
+  @apply flex gap-5 mb-5;
+}
 .owner {
   @apply flex-row-reverse;
 }
