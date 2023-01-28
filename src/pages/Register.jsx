@@ -8,9 +8,11 @@ import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
   const [err, setErr] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const displayName = e.target[0].value;
     const email = e.target[1].value;
@@ -20,20 +22,19 @@ const Register = () => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      const storageRef = ref(storage, displayName);
+      const storageRef = ref(storage, `${displayName + date}`);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      const date = new Date().getTime();
 
-      uploadTask.on(
-        (error) => {
-          setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
+            //Update profile
             await updateProfile(res.user, {
               displayName,
               photoURL: downloadURL,
             });
+            //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
               uid: res.user.uid,
               displayName,
@@ -41,15 +42,22 @@ const Register = () => {
               photoURL: downloadURL,
             });
 
+            //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
             navigate("/");
-          });
-        }
-      );
+          } catch (err) {
+            console.log(err);
+            setErr(true);
+            setLoading(false);
+          }
+        });
+      });
     } catch (err) {
       setErr(true);
+      setLoading(false);
     }
   };
+
   return (
     <div className=" h-screen flex items-center justify-center">
       <div className="bg-cool-grey-050  py-5 px-14 rounded-xl flex flex-col gap-2.5 items-center ">
@@ -73,10 +81,14 @@ const Register = () => {
             <span> Add an avatar</span>
           </label>
 
-          <button className="bg-indigo-600 flex items-center justify-center gap-1 text-white p-2.5 font-bold cursor-pointer rounded-lg hover:bg-indigo-400 ">
+          <button
+            className="bg-indigo-600 flex items-center justify-center gap-1 text-white p-2.5 font-bold cursor-pointer rounded-lg hover:bg-indigo-400 "
+            disabled={loading}
+          >
             <div className="w-4 h-4 border-b-2 border-b-white animate-spin rounded-full"></div>
             Sign up
           </button>
+          {loading && "Uploading and compressing the image please wait..."}
           {err && <span>Something went wrong</span>}
         </form>
 
