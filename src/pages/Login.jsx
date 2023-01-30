@@ -26,8 +26,8 @@ const Login = () => {
         <h1 className="font-bold text-2xl">Gossip Chat</h1>
         <h3 className="text-xl">Login</h3>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <input className="loginput" type="email" placeholder="email" />
-          <input className="loginput" type="password" placeholder="password" />
+          <input className="forminput" type="email" placeholder="email" />
+          <input className="forminput" type="password" placeholder="password" />
           <button className="bg-indigo-600 text-white p-2.5 font-bold cursor-pointer rounded-lg hover:bg-indigo-500">
             Sign in
           </button>
