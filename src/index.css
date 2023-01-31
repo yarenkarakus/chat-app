@@ -2,14 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== Scrollbar CSS ===== */
-/* Firefox */
 * {
   scrollbar-width: auto;
   scrollbar-color: #647acb #e4e7eb;
 }
 
-/* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 14px;
 }
@@ -28,7 +25,11 @@ body {
   @apply bg-cool-grey-100 text-cool-grey-800 font-mono;
 }
 
-.input {
+input {
+  @apply outline-none;
+}
+
+.forminput {
   @apply border-orange-300  p-3.5 w-64 border-b-2 rounded-xl;
 }
 
