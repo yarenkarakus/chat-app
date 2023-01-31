@@ -73,13 +73,10 @@ const Register = () => {
 
   return (
     <div className=" h-screen flex items-center justify-center">
-      <div className="bg-cool-grey-050 py-5 px-14 rounded-xl flex flex-col gap-2.5 items-center ">
+      <div className="bg-cool-grey-050 py-5 px-14 rounded-xl flex flex-col gap-2.5 items-center max-w-sm">
         <h1 className="font-bold text-2xl">Gossip Chat</h1>
         <h3 className="text-xl">Register</h3>
-        <form
-          className="flex flex-col gap-4 max-w-[360px]"
-          onSubmit={handleSubmit}
-        >
+        <form className="flex flex-col gap-4 " onSubmit={handleSubmit}>
           <input className="forminput" type="text" placeholder="Name" />
           <input className="forminput" type="email" placeholder="Email" />
           <input className="forminput" type="password" placeholder="Password" />
